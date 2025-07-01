@@ -47,7 +47,8 @@ wss.on('connection', ((ws: any) => {
     switch (msg.type) {
       case 'join': {
         const { name, roomId } = msg;
-        const userId = uuidv4();
+        let userId = uuidv4();
+
         let room = rooms[roomId];
         if (!room) {
           room = {
@@ -57,13 +58,9 @@ wss.on('connection', ((ws: any) => {
           };
           rooms[roomId] = room;
         }
-
         room.participants.push({ id: userId, name });
-
         clients.set(ws, { roomId, userId });
 
-        // Send initial participant ID to the client
-        console.log('👤 New user joined:', { name, roomId, userId });
         ws.send(JSON.stringify({ type: 'joined', userId }));
 
         broadcast(roomId);
@@ -78,12 +75,19 @@ wss.on('connection', ((ws: any) => {
         const room = rooms[client.roomId];
         const ticket = room.tickets.find((t) => t.isActive);
         if (!ticket) return;
-
         const existingVote = ticket.votes.find((v) => v.userId === client.userId);
         if (existingVote) {
           existingVote.value = value;
         } else {
           ticket.votes.push({ userId: client.userId, value });
+        }
+
+        const allVoted = room.participants.every((p) =>
+          ticket.votes.some((v) => v.userId === p.id && v.value !== null)
+        );
+
+        if (allVoted) {
+          ticket.revealed = true;
         }
 
         broadcast(client.roomId);
@@ -152,6 +156,10 @@ wss.on('connection', ((ws: any) => {
       ticket.votes = ticket.votes.filter((v) => v.userId !== client.userId);
     });
 
+    const ticket = room.tickets.find((t) => t.isActive);
+    if (ticket) {
+      ticket.revealed = ticket.votes.length === room.participants.length
+    }
     if (room.participants.length === 0) {
       delete rooms[client.roomId];
     } else {
@@ -185,6 +193,7 @@ function broadcast(roomId: string) {
       title: ticket.title,
       isActive: ticket.isActive,
       revealed: ticket.revealed,
+      votes: ticket.votes,
     },
   });
 

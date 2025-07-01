@@ -5,9 +5,9 @@ import { RoomProvider } from './context/RoomContext/RoomContext.tsx'
 import { WebSocketProvider } from './context/WebSocketContext/WebSocketContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  <WebSocketProvider url="ws://localhost:3000">
-    <RoomProvider>
+  <RoomProvider>
+    <WebSocketProvider url="ws://localhost:3000">
       <App />
-    </RoomProvider>
-  </WebSocketProvider >
+    </WebSocketProvider >
+  </RoomProvider>
 )

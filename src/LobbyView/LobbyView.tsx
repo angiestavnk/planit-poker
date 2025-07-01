@@ -42,7 +42,6 @@ const LobbyView = () => {
 
   const handleSubmit = () => {
     if (validate()) {
-      console.log('Sending join message:', { name: name.trim(), roomId });
       send({ type: 'join', name: name.trim(), roomId });
     }
   };
@@ -59,7 +58,6 @@ const LobbyView = () => {
     const msg = lastMessage;
 
     if (msg.type === 'joined') {
-      console.log('✅ JOINED', msg);
       setRoomState({ roomId, userId: msg.userId, name });
       navigate(`/room/${roomId}`);
     }
