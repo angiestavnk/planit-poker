@@ -4,7 +4,7 @@ import RoomView from './RoomView/RoomView'
 import { useWebSocket } from './context/WebSocketContext/WebSocketContext';
 
 function App() {
-  const { connected } = useWebSocket();
+  const { connected } = useWebSocket()
 
   return (
     <BrowserRouter>

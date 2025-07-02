@@ -3,7 +3,7 @@ import './ParticipantCard.css'
 
 type Props = {
   name: string;
-  vote: any;
+  vote: number | '?' | null;
   revealed: boolean;
 }
 

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cat from "../components/Animation/Animation";
 import { useRoom } from "../context/RoomContext/RoomContext";
 import { useWebSocket } from "../context/WebSocketContext/WebSocketContext";
+import { Cat } from "../components/Animation/Animation";
 
-const latinRegex = /^[A-Za-z]+$/;
+const latinRegex = /^[A-Za-z0-9]+$/;
 const roomId = '1'
 
 const LobbyView = () => {
@@ -33,7 +33,7 @@ const LobbyView = () => {
     }
 
     if (!latinRegex.test(trimmedName)) {
-      setError("Please use latin letters");
+      setError("Please use latin letters and/or numbers");
       return false;
     }
     setError("");
