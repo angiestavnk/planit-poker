@@ -1,53 +1,82 @@
 # Planit Poker – React + TypeScript + Vite
 
-Simple planit poker app that uses WebSockets.
+A simple **planning poker app** that uses **WebSockets** to simulate real-time collaborative estimation.
+
+---
+
+## Demo
+
+[Click to watch the demo video](https://github.com/angiestavnk/planit-poker/raw/master/02.07.2025_23.24.17_REC.mp4)
+
+---
 
 ## Prerequisites
 
 Before you begin, make sure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [npm](https://www.npmjs.com/) (comes with Node)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
 
-You can check your installed versions with:
+Check your versions:
 
 ```bash
 node -v
 npm -v
+```
 
-1. **Install dependencies:**
+---
+
+## Getting Started
+
+### 1. Install dependencies
 
 ```bash
 npm install
+```
 
-Install required global tools (if not already available):
+Install required development tools:
 
 ```bash
-npm install tsx --save-dev (to run server)
+npm install --save-dev tsx
+```
 
-2. **Run application:**
+---
 
-- Run server
+### 2. Run the app
+
+#### Start the WebSocket server:
 
 ```bash
 npx tsx server/server.ts
+```
 
-In terminal you should see the message `WebSocket server running on ws://localhost:3000`
+You should see:
 
-- Run client
+```
+WebSocket server running on ws://localhost:3000
+```
+
+#### Start the client:
 
 ```bash
 npm run dev
+```
 
-Open http://localhost:5173 in your browser.
+Then open your browser at:  
+[http://localhost:5173](http://localhost:5173)
 
-3.  **How to Use the App**
+---
 
- - Open two browser windows (or tabs) side by side** — this simulates two different users this simulates two different users.
-  In **each window**:
- - Enter a **unique name** in the input field.
- - Click the **"Enter the room"** button.
- - Each participant sees the same list of possible votes and ticket that is being estimated.
- - Click on a card to **cast your vote**.
- - Once everyone in the room has voted, the estimates are revealed automatically.
- - User can then reset the round and vote again on a new ticket.
+### 3. How to Use the App
+
+1. **Open two browser windows or tabs** — this simulates two different users.
+2. In **each window**:
+   - Enter a **name** in the input field.
+   - Click the **"Enter the room"** button.
+3. You will see:
+   - A shared list of estimation cards
+   - The active ticket being estimated
+4. Each user can:
+   - Click a card to **send a vote**
+   - See everyone's estimates once all users have voted
+   - Click **"Reset round"** to start a new estimate for evryone
